@@ -1,0 +1,16 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+steer_wheel_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - steering_1_joint
+    - steering_2_joint
+    - steering_3_joint
+    - steering_4_joint
+  gains:
+    steering_1_joint: {p: 1000,  d: 10, i: 0, i_clamp: 1}
+    steering_2_joint: {p: 1000,  d: 10, i: 0, i_clamp: 1}
+    steering_3_joint: {p: 1000,  d: 10, i: 0, i_clamp: 1}
+    steering_4_joint: {p: 1000,  d: 10, i: 0, i_clamp: 1}

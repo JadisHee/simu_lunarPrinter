@@ -1,0 +1,311 @@
+<?xml version="1.0"?>
+<robot name="agv" xmlns:xacro="http://ros.org/wiki/xacro" >
+    <xacro:arg name="laser_visual" default="false"/>
+    <xacro:arg name="camera_visual" default="false"/>
+
+    <!--#############################################-->
+    <!-- 定义车体属性 -->
+    <!--#############################################-->
+    
+    <gazebo reference="agv_base_link">
+        <material>Gazebo/Gray</material>
+    </gazebo>
+
+    <gazebo reference="agv_base_waike">
+        <material>Gazebo/White</material>
+    </gazebo>
+   
+
+    <!--##########################################################################################-->
+    <!-- 定义支撑腿转轴属性 -->
+    <!--##########################################################################################-->
+
+    <gazebo reference="leg_1_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="leg_2_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="leg_3_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="leg_4_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+
+    <!--#############################################-->
+    <!-- 传动实现：用于连接控制器和关节 -->
+    <xacro:macro name="leg_trans" params="joint_name">
+        <!-- Transmission is important to link the joints and the controller -->
+        <!---->
+        <transmission name="${joint_name}_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${joint_name}_motor">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:leg_trans joint_name="leg_1_joint" />
+    <xacro:leg_trans joint_name="leg_2_joint" />
+    <xacro:leg_trans joint_name="leg_3_joint" />
+    <xacro:leg_trans joint_name="leg_4_joint" />
+
+
+    <!--##########################################################################################-->
+    <!-- 定义支撑腿伸缩属性 -->
+    <!--##########################################################################################-->
+
+    <gazebo reference="foot_1_link">
+        <material>Gazebo/DarkGray</material>
+    </gazebo>
+
+    <gazebo reference="foot_2_link">
+        <material>Gazebo/DarkGray</material>
+    </gazebo>
+
+    <gazebo reference="foot_3_link">
+        <material>Gazebo/DarkGray</material>
+    </gazebo>
+
+    <gazebo reference="foot_4_link">
+        <material>Gazebo/DarkGray</material>
+    </gazebo>
+
+
+
+    <!--#############################################-->
+    <!-- 传动实现：用于连接控制器和关节 -->
+    <xacro:macro name="foot_trans" params="joint_name">
+        <!-- Transmission is important to link the joints and the controller -->
+        <!---->
+        <transmission name="${joint_name}_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${joint_name}_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:foot_trans joint_name="foot_1_joint" />
+    <xacro:foot_trans joint_name="foot_2_joint" />
+    <xacro:foot_trans joint_name="foot_3_joint" />
+    <xacro:foot_trans joint_name="foot_4_joint" />
+    
+
+    <xacro:foot_trans joint_name="arm_base_1_joint" />
+<!--     
+    <xacro:foot_trans joint_name="arm_base_2_joint" />
+    <xacro:foot_trans joint_name="arm_base_3_joint" />
+    <xacro:foot_trans joint_name="arm_base_4_joint" /> -->
+
+
+
+    <!--##########################################################################################-->
+    <!-- 定义舵轮转轴属性 -->
+    <!--##########################################################################################-->
+
+    <!--#############################################-->
+    <!-- 传动实现：用于连接控制器和关节 -->
+    <xacro:macro name="steer_trans" params="joint_name">
+        <!-- Transmission is important to link the joints and the controller -->
+        <!---->
+        <transmission name="${joint_name}_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${joint_name}_motor">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:steer_trans joint_name="steering_1_joint" />
+    <xacro:steer_trans joint_name="steering_2_joint" />
+    <xacro:steer_trans joint_name="steering_3_joint" />
+    <xacro:steer_trans joint_name="steering_4_joint" />
+
+    <!--##########################################################################################-->
+    <!-- 定义行走车轮属性 -->
+    <!--##########################################################################################-->
+
+    <!--#############################################-->
+    <!-- 传动实现：用于连接控制器和关节 -->
+    <xacro:macro name="joint_trans" params="joint_name">
+        <!-- Transmission is important to link the joints and the controller -->
+        <!---->
+        <transmission name="${joint_name}_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${joint_name}_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    
+    <!-- 左前轮 -->
+    <gazebo reference="front_left_wheel_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <xacro:joint_trans joint_name="wheel_1_joint" />
+
+    <!--#############################################-->
+    <!-- 右前轮 -->
+    <gazebo reference="front_right_wheel_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <xacro:joint_trans joint_name="wheel_2_joint" />
+
+    <!--#############################################-->
+    <!-- 左后轮 -->
+    <gazebo reference="back_left_wheel_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <xacro:joint_trans joint_name="wheel_3_joint" />
+
+    <!--#############################################-->
+    <!-- 右后轮 -->
+    <gazebo reference="back_right_wheel_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <xacro:joint_trans joint_name="wheel_4_joint" />
+
+    <!--#############################################-->
+    <!-- 控制器 -->
+    <!-- <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo> -->
+
+
+    <!--##########################################################################################-->
+    <!-- 定义传感器元件属性 -->
+    <!--##########################################################################################-->
+
+    <!--#############################################-->
+    <!-- 前激光雷达 -->
+    <gazebo reference="front_lidar_link">
+        <material>Gazebo/DarkGrey</material>
+        <sensor type="gpu_ray" name="lidar_sensor_1">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>$(arg laser_visual)</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                <horizontal>
+                    <samples>720</samples>
+                    <resolution>0.5</resolution>
+                    <min_angle>-3.14159265</min_angle>
+                    <max_angle>1.047197551</max_angle>
+                </horizontal>
+                </scan>
+                <range>
+                <min>0.120</min>
+                <max>50.0</max>
+                <resolution>0.015</resolution>
+                </range>
+                <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </ray>
+            <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_gpu_laser.so">
+                
+                <topicName>scan_1</topicName>
+                <frameName>front_lidar_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!--#############################################-->
+    <!-- 后激光雷达 -->
+    <gazebo reference="back_lidar_link">
+        <material>Gazebo/DarkGrey</material>
+        <sensor type="gpu_ray" name="lidar_sensor_2">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>$(arg laser_visual)</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                <horizontal>
+                    <samples>720</samples>
+                    <resolution>0.5</resolution>
+                    <min_angle>-3.14159265</min_angle>
+                    <max_angle>1.047197551</max_angle>
+                </horizontal>
+                </scan>
+                <range>
+                <min>0.120</min>
+                <max>50.0</max>
+                <resolution>0.015</resolution>
+                </range>
+                <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </ray>
+            <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_gpu_laser.so">
+                
+                <topicName>scan_2</topicName>
+                <frameName>back_lidar_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!--#############################################-->
+    <!-- 二维码相机 -->
+    <gazebo reference="code_camera_link">
+        <material>Gazebo/Green</material>
+        <sensor type="camera" name="csi Camera">
+            <always_on>true</always_on>
+            <visualize>$(arg camera_visual)</visualize>
+            <camera>
+                <horizontal_fov>1.085595</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.03</near>
+                    <far>100</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>30.0</updateRate>
+                <cameraName>/</cameraName>
+                <frameName>base_camera_link</frameName>
+                <imageTopicName>image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+
+
+</robot>

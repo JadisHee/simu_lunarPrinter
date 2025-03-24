@@ -1,0 +1,29 @@
+<launch>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+    <param name="/use_sim_time" value="true" />  
+
+    <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 agv_base_link base_footprint 40" />
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find lunarPrinter)/urdf/agv/agv.xacro" />
+
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model agv.xacro -param robot_description" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <rosparam file="$(find lunarPrinter)/config/agv_ctrler.yaml" command="load" />
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" 
+        args="
+            joint_state_controller 
+            leg_controller
+            feet_controller
+            steer_wheel_controller
+            wheel_1_velocity_controller 
+            wheel_2_velocity_controller 
+            wheel_3_velocity_controller 
+            wheel_4_velocity_controller" />
+
+    <node name="cmd_vel_to_steer_wheels" pkg="lunarPrinter" type="steer_ctrl.py" />
+</launch>

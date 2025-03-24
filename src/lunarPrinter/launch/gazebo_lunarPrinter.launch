@@ -1,0 +1,41 @@
+<launch>
+
+    <include file="$(find lunarPrinter)/launch/gazebo_world.launch"/>
+
+    <param name="/use_sim_time" value="true" />  
+
+    <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_link base_footprint 40" />
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find lunarPrinter)/urdf/lunarPrinter/lunarPrinter.xacro" />
+
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model lunarPrinter.xacro -param robot_description" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="50.0"/>
+    </node>
+
+    <!-- <node    name="rviz"    pkg="rviz"    type="rviz"    args="-d $(find lunarPrinter)/rivz/lunarPrinter.rviz" /> -->
+
+    <!-- <rosparam file="$(find lunarPrinter)/config/arm_ctrler.yaml" command="load"/>  
+    <node   name="controller_spawner_arm" pkg="controller_manager" type="spawner" 
+            args="arm_controller joint_state_controller" /> -->
+
+    <rosparam file="$(find lunarPrinter)/config/lunar_printer_ctrler.yaml" command="load" />
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" 
+        args=" 
+            joint_state_controller
+            arm_controller 
+            leg_controller
+            feet_controller
+            steer_wheel_controller
+            arm_base_controller
+            wheel_1_velocity_controller 
+            wheel_2_velocity_controller 
+            wheel_3_velocity_controller 
+            wheel_4_velocity_controller" />
+
+    <node name="cmd_vel_to_steer_wheels" pkg="lunarPrinter" type="steer_ctrl.py" />
+    <node name="odom_to_tf_broadcaster" pkg="lunarPrinter" type="odom_to_tf_broadcaster.py" />
+    
+</launch>

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="lunarArm">
+  
+
+<link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-4.423E-05 0.071988 0.00015157"
+        rpy="0 0 0" />
+      <mass
+        value="27.682" />
+      <inertia
+        ixx="0.19507"
+        ixy="-9.9047E-06"
+        ixz="0.00014613"
+        iyy="0.36106"
+        iyz="2.1673E-05"
+        izz="0.19459" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.98824 0.73725 0.51765 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  
+
+<link
+    name="link_1">
+    <inertial>
+      <origin
+        xyz="0.0020411 -8.5379E-05 0.00014512"
+        rpy="0 0 0" />
+      <mass
+        value="34.211" />
+      <inertia
+        ixx="0.14887"
+        ixy="2.4729E-07"
+        ixz="-4.9383E-06"
+        iyy="0.10509"
+        iyz="7.3354E-05"
+        izz="0.10539" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.98824 0.73725 0.51765 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_1"
+    type="revolute">
+    <origin
+      xyz="-0.030448 -0.19993 0.229"
+      rpy="1.5708 0 3.1394" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_1" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+
+  
+  
+
+<link
+    name="link_2">
+    <inertial>
+      <origin
+        xyz="0.0033106 0.83834 -0.14427"
+        rpy="0 0 0" />
+      <mass
+        value="24.237" />
+      <inertia
+        ixx="1.249"
+        ixy="0.00015288"
+        ixz="-0.0026305"
+        iyy="0.20173"
+        iyz="0.0030011"
+        izz="1.2505" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.46667 0.70196 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_2"
+    type="revolute">
+    <origin
+      xyz="0.046546 0 0"
+      rpy="1.5708 -1.5659 -1.5708" />
+    <parent
+      link="link_1" />
+    <child
+      link="link_2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+
+<link
+    name="link_3">
+    <inertial>
+      <origin
+        xyz="0.024858 -0.038868 0.035042"
+        rpy="0 0 0" />
+      <mass
+        value="41.502" />
+      <inertia
+        ixx="0.2944"
+        ixy="-0.028266"
+        ixz="0.040954"
+        iyy="1.0472"
+        iyz="0.0069112"
+        izz="1.1064" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.98824 0.73725 0.51765 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_3"
+    type="revolute">
+    <origin
+      xyz="-0.25764 1.6082 0.081046"
+      rpy="-3.1416 0 -2.6288" />
+    <parent
+      link="link_2" />
+    <child
+      link="link_3" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+
+<link
+    name="link_4">
+    <inertial>
+      <origin
+        xyz="0.081075 -0.00088505 -0.0705"
+        rpy="0 0 0" />
+      <mass
+        value="3.9465" />
+      <inertia
+        ixx="0.01199"
+        ixy="-2.8485E-06"
+        ixz="2.7983E-05"
+        iyy="0.015935"
+        iyz="1.9928E-06"
+        izz="0.022806" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_4"
+    type="revolute">
+    <origin
+      xyz="1.617 0 -0.067"
+      rpy="-3.1416 0 3.1416" />
+    <parent
+      link="link_3" />
+    <child
+      link="link_4" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+
+<link
+    name="link_5">
+    <inertial>
+      <origin
+        xyz="0.075407 0.035453 -0.033705"
+        rpy="0 0 0" />
+      <mass
+        value="2.5068" />
+      <inertia
+        ixx="0.0037498"
+        ixy="2.865E-07"
+        ixz="0.00013232"
+        iyy="0.0033406"
+        iyz="8.2008E-08"
+        izz="0.0029731" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.86667 0.86667 0.8902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_5"
+    type="revolute">
+    <origin
+      xyz="0.042237 0.0029286 -0.1042"
+      rpy="-3.1416 0 -2.0787" />
+    <parent
+      link="link_4" />
+    <child
+      link="link_5" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+
+<link
+    name="link_6">
+    <inertial>
+      <origin
+        xyz="2.9813E-06 2.8266E-06 -0.066022"
+        rpy="0 0 0" />
+      <mass
+        value="20.303" />
+      <inertia
+        ixx="0.06352"
+        ixy="-2.1853E-06"
+        ixz="-5.0851E-07"
+        iyy="0.063521"
+        iyz="-6.8675E-08"
+        izz="0.05861" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.61569 0.64314 0.67451 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lunarArm/meshes/link_6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_6"
+    type="revolute">
+    <origin
+      xyz="0.3087 0.035481 -0.0372"
+      rpy="1.5708 -1.5686 1.5708" />
+    <parent
+      link="link_5" />
+    <child
+      link="link_6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.2832"
+      upper="6.2832"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

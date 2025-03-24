@@ -1,0 +1,125 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: &loop_hz 50
+
+arm_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints: &robot_joints
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+    - joint_6
+  gains:
+    joint_1: {p: 1,  d: 0.01, i: 0, i_clamp: 1}
+    joint_2: {p: 1,  d: 0.01, i: 0, i_clamp: 1}
+    joint_3: {p: 1,  d: 0.01, i: 0, i_clamp: 1}
+    joint_4: {p: 0.02,  d: 0, i: 0, i_clamp: 1}
+    joint_5: {p: 0.02,  d: 0, i: 0, i_clamp: 1}
+    joint_6: {p: 0.02,  d: 0, i: 0, i_clamp: 1} 
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    joint_1: {trajectory: 0.1, goal: 0.1}
+    joint_2: {trajectory: 0.1, goal: 0.1}
+    joint_3: {trajectory: 0.1, goal: 0.1}
+    joint_4: {trajectory: 0.1, goal: 0.1}
+    joint_5: {trajectory: 0.1, goal: 0.1}
+    joint_6: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: *loop_hz
+  action_monitor_rate: 10
+    
+  gravity_compensation: true
+
+steer_wheel_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - steering_1_joint
+    - steering_2_joint
+    - steering_3_joint
+    - steering_4_joint
+  gains:
+    steering_1_joint: {p: 100,  d: 0, i: 0, i_clamp: 1}
+    steering_2_joint: {p: 100,  d: 0, i: 0, i_clamp: 1}
+    steering_3_joint: {p: 100,  d: 0, i: 0, i_clamp: 1}
+    steering_4_joint: {p: 100,  d: 0, i: 0, i_clamp: 1}
+
+
+leg_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - leg_1_joint
+    - leg_2_joint
+    - leg_3_joint
+    - leg_4_joint
+  gains:
+    leg_1_joint: {p: 100000,  d: 10, i: 0, i_clamp: 1}
+    leg_2_joint: {p: 100000,  d: 10, i: 0, i_clamp: 1}
+    leg_3_joint: {p: 100000,  d: 10, i: 0, i_clamp: 1}
+    leg_4_joint: {p: 100000,  d: 10, i: 0, i_clamp: 1}
+
+feet_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - foot_1_joint
+    - foot_2_joint
+    - foot_3_joint
+    - foot_4_joint
+  gains:
+    foot_1_joint: {p: 20000,  d: 10, i: 0, i_clamp: 1}
+    foot_2_joint: {p: 20000,  d: 10, i: 0, i_clamp: 1}
+    foot_3_joint: {p: 20000,  d: 10, i: 0, i_clamp: 1}
+    foot_4_joint: {p: 20000,  d: 10, i: 0, i_clamp: 1}
+
+
+arm_base_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - arm_base_1_joint
+    # - arm_base_2_joint
+    # - arm_base_3_joint
+    # - arm_base_4_joint
+  gains:
+    arm_base_1_joint: {p: 10,  d: 1, i: 0, i_clamp: 1}
+    # arm_base_2_joint: {p: 0,  d: 0, i: 0, i_clamp: 1}
+    # arm_base_3_joint: {p: 0,  d: 0, i: 0, i_clamp: 1}
+    # arm_base_4_joint: {p: 0,  d: 0, i: 0, i_clamp: 1}
+
+
+
+wheel_1_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_1_joint
+  pid:
+    p: 1
+    i: 0
+    d: 0
+    i_clamp: 1
+wheel_2_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_2_joint
+  pid:
+    p: 1
+    i: 0
+    d: 0
+    i_clamp: 1
+
+wheel_3_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_3_joint
+  pid:
+    p: 1
+    i: 0
+    d: 0
+    i_clamp: 1
+
+wheel_4_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_4_joint
+  pid:
+    p: 1
+    i: 0
+    d: 0
+    i_clamp: 1

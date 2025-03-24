@@ -1,0 +1,936 @@
+<?xml version="1.0"?>
+
+<robot name="agv" xmlns:xacro="http://ros.org/wiki/xacro" >
+    
+    <xacro:include filename="$(find lunarPrinter)/urdf/agv/agv.gazebo.xacro" />
+
+<!-- 
+    <link name="base_footprint" /> -->
+
+    <!--##########################################################################################-->
+    <!-- 构建车体 -->
+    <!--##########################################################################################-->
+    <link name="agv_base_link">
+        <inertial>
+            <origin xyz="-0.0149529928295683 -4.94322252418334E-06 0.222184832094901" rpy="0 0 0" />
+            <mass value="0.00519383596577394" />
+            <inertia
+        		ixx="0.00110386178303131"
+                ixy="-0.000000315927825227971"
+                ixz="-0.000000344955769853279"
+                iyy="0.00133908938189479"
+                iyz="0.00000000418959728531496"
+                izz="0.239374249509396" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+        	    <mesh filename="package://lunarPrinter/meshes/agv/base_zhijia.STL" />
+      		</geometry>
+            <material name="While">
+                <color rgba="1 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lunarPrinter/meshes/agv/base_zhijia.STL" />
+                <!--
+                <box size="1.2 0.8 0.365" />
+                -->
+                
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 设置关节坐标系 -->
+    <!-- <joint name="agv_base_joint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="agv_base_link" />
+        <origin rpy="0 0 0" xyz="0 0 0" /> 
+    </joint> -->
+
+
+    <link name="agv_base_waike">
+        <inertial>
+            <origin xyz="-0.0149529928295683 -4.94322252418334E-06 0.222184832094901" rpy="0 0 0" />
+            <mass value="0.001" />
+            <inertia
+        		ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+        	    <mesh filename="package://lunarPrinter/meshes/agv/base_waike.STL" />
+      		</geometry>
+            <material name="While">
+                <color rgba="1 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://lunarPrinter/meshes/agv/base_waike.STL" />
+                <!--
+                <box size="1.2 0.8 0.365" />
+                -->
+                
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 设置关节坐标系 -->
+    <joint name="agv_base_waike_joint" type="fixed">
+        <parent link="agv_base_link" />
+        <child link="agv_base_waike" />
+        <origin rpy="0 0 0" xyz="0 0 0" /> 
+    </joint>
+    <!--
+    <link name="arm_base_link">
+    </link>
+
+    <joint name="arm_base_joint" type="fixed">
+        <parent link="agv_base_link" />
+        <child link="arm_base_link" />
+        <origin rpy="0 0 0" xyz="0 0 1.95542" /> 
+    </joint>
+    -->
+
+    <!--##########################################################################################-->
+    <!--构建车轮-->
+    <!--##########################################################################################-->
+
+    <!--舵轮基座-->
+    <link name="steering_1_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+    </link>
+    <joint name="steering_1_joint" type="revolute">
+        <origin xyz="0.762 0.56625 -0.01942" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="steering_1_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159265" upper="3.14159265" effort="5" velocity="1.5708" />
+    </joint>
+
+    <link name="steering_2_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+    </link>
+    <joint name="steering_2_joint" type="revolute">
+        <origin xyz="0.762 -0.56625 -0.01942" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="steering_2_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159265" upper="3.14159265" effort="5" velocity="1.5708" />
+    </joint>
+
+    <link name="steering_3_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+    </link>
+    <joint name="steering_3_joint" type="revolute">
+        <origin xyz="-0.762 0.56625 -0.01942" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="steering_3_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159265" upper="3.14159265" effort="5" velocity="1.5708" />
+    </joint>
+
+    <link name="steering_4_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+    </link>
+    <joint name="steering_4_joint" type="revolute">
+        <origin xyz="-0.762 -0.56625 -0.01942" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="steering_4_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159265" upper="3.14159265" effort="5" velocity="1.5708" />
+    </joint>
+
+
+    <!--#############################################-->
+    <!-- 构建左前轮 -->
+    <link name="front_left_wheel_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 左前轮关节坐标系 -->
+    <joint name="wheel_1_joint" type="continuous">
+        <origin xyz="0 0 0" rpy="-1.5708 0 0" />
+        <parent link="steering_1_link" />
+        <child link="front_left_wheel_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+    <!--#############################################-->
+    <!-- 构建右前轮 -->
+    <!--#############################################-->
+    <link name="front_right_wheel_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 右前轮关节坐标系 -->
+    <joint name="wheel_2_joint" type="continuous">
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <parent link="steering_2_link" />
+        <child link="front_right_wheel_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+    <!--#############################################-->
+    <!-- 构建左后轮 -->
+    <!--#############################################-->
+    <link name="back_left_wheel_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 左后轮关节坐标系 -->
+    <joint name="wheel_3_joint" type="continuous">
+        <origin xyz="0 0 0" rpy="-1.5708 0 0" />
+        <parent link="steering_3_link" />
+        <child link="back_left_wheel_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+    <!--#############################################-->
+    <!-- 构建右后轮 -->
+    <!--#############################################-->
+    <link name="back_right_wheel_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.125" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 左后轮关节坐标系 -->
+    <joint name="wheel_4_joint" type="continuous">
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <parent link="steering_4_link" />
+        <child link="back_right_wheel_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+
+    <!--#############################################-->
+    <!-- 构建前雷达-->
+    <!--#############################################-->
+    <link name="front_lidar_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/front_lidar_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh 
+                filename="package://lunarPrinter/meshes/agv/front_lidar_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 前雷达坐标系 -->
+    <joint name="front_lidar_joint" type="fixed">
+        <origin xyz="1.0527 -0.84887 0.24279" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="front_lidar_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+    <!--#############################################-->
+    <!-- 构建后雷达-->
+    <!--#############################################-->
+    <link name="back_lidar_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/back_lidar_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/back_lidar_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 后雷达坐标系 -->
+    <joint name="back_lidar_joint" type="fixed">
+        <origin xyz="-1.0527 0.84887 0.24279" rpy="0 0 -3.1416" />
+        <parent link="agv_base_link" />
+        <child link="back_lidar_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+    <!--#############################################-->
+    <!-- 构建二维码相机-->
+    <!--#############################################-->
+    <link name="code_camera_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/code_camera_link.STL" />
+            </geometry>
+            <material name="Gray">
+                <color rgba="0.5 0.5 0.5 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/code_camera_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 二维码相机坐标系 -->
+    <joint name="code_camera_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="3.1416 0 -1.5708" />
+        <parent link="agv_base_link" />
+        <child link="code_camera_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+
+    <!--##########################################################################################-->
+    <!-- 构建支架-->
+    <!--##########################################################################################-->
+
+    <!--#############################################-->
+    <!--左前腿-->
+    <link name="leg_1_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/front_left_leg_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/front_left_leg_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg_1_joint" type="revolute">
+        <origin xyz="0.765 0.565 0.44022" rpy="0 0 3.1416" />
+        <parent link="agv_base_link" />
+        <child link="leg_1_link" />
+        <axis xyz="0 0 -1" />
+        <limit lower="0" upper="1.5708" effort="100" velocity="1.5708" />
+    </joint>
+
+    <!--左前足-->
+    <link name="foot_1_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="3" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_1_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_1_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="foot_1_joint" type="prismatic">
+        <origin xyz="0.6115 0 -0.4835" rpy="-3.1416 0 1.5708" />
+        <parent link="leg_1_link" />
+        <child link="foot_1_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.15" effort="30" velocity="0.5" />
+    </joint>
+
+    <!--#############################################-->
+    <!--右前腿-->
+    <link name="leg_2_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/front_right_leg_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/front_right_leg_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg_2_joint" type="revolute">
+        <origin xyz="0.765 -0.565 0.44022" rpy="0 0 3.1416" />
+        <parent link="agv_base_link" />
+        <child link="leg_2_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="1.5708" effort="100" velocity="1.5708" />
+    </joint>
+
+    <!--右前足-->
+    <link name="foot_2_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="3" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_2_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_2_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="foot_2_joint" type="prismatic">
+        <origin xyz="0.6115 0 -0.4835" rpy="3.1416 0 1.5708" />
+        <parent link="leg_2_link" />
+        <child link="foot_2_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.15" effort="30" velocity="0.5" />
+    </joint>
+
+    <!--#############################################-->
+    <!--左后腿-->
+    <link name="leg_3_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/back_left_leg_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/back_left_leg_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg_3_joint" type="revolute">
+        <origin xyz="-0.765 0.565 0.44022" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="leg_3_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="1.5708" effort="100" velocity="1.5708" />
+    </joint>
+
+    <!--左后足-->
+    <link name="foot_3_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="3" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_3_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_3_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="foot_3_joint" type="prismatic">
+        <origin xyz="0.6115 0 -0.4835" rpy="-3.1416 0 -1.5708" />
+        <parent link="leg_3_link" />
+        <child link="foot_3_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.15" effort="30" velocity="0.5" />
+    </joint>
+
+    <!--#############################################-->
+    <!--右后腿-->
+    <link name="leg_4_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="1" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/back_right_leg_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/back_right_leg_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="leg_4_joint" type="revolute">
+        <origin xyz="-0.765 -0.565 0.44022" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="leg_4_link" />
+        <axis xyz="0 0 -1" />
+        <limit lower="0" upper="1.5708" effort="100" velocity="1.5708" />
+    </joint>
+
+    <!--左后足-->
+    <link name="foot_4_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="3" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_4_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/foot_4_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="foot_4_joint" type="prismatic">
+        <origin xyz="0.6115 0 -0.4835" rpy="3.1416 0 -1.5708" />
+        <parent link="leg_4_link" />
+        <child link="foot_4_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.15" effort="30" velocity="0.5" />
+    </joint>
+
+
+    <!--##########################################################################################-->
+    <!-- 构建机械臂支架-->
+    <!--##########################################################################################-->
+    <link name="arm_base_0_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.001" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 -1.3332" rpy="0 0 0" />
+            <geometry>
+                <box size="0.35 0.35 0.05" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 -0.6666" rpy="0 0 0" />
+            <geometry>
+                <box size="0.3 0.3 1.3332" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 -0.015" rpy="0 0 0" />
+            <geometry>
+                <box size="0.31 0.31 0.03" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+    </link>
+
+    <joint name="arm_base_0_joint" type="fixed">
+        <origin xyz="0 0 1.76742" rpy="0 0 0" />
+        <parent link="agv_base_link" />
+        <child link="arm_base_0_link" />
+        <axis xyz="0 0 1" />
+    </joint>   
+
+
+
+    <link name="arm_base_1_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.001" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 -0.6666" rpy="0 0 0" />
+            <geometry>
+                <box size="0.29 0.29 1.3332" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 -0.015" rpy="0 0 0" />
+            <geometry>
+                <box size="0.3 0.3 0.03" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+    </link>
+
+    <joint name="arm_base_1_joint" type="prismatic">
+        <origin xyz="0 0 0.032" rpy="0 0 0" />
+        <parent link="arm_base_0_link" />
+        <child link="arm_base_1_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="1" effort="1000" velocity="0.5" />
+    </joint>   
+
+
+
+
+    <link name="arm_base_2_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.001" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 -0.6666" rpy="0 0 0" />
+            <geometry>
+                <box size="0.28 0.28 1.3332" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 -0.015" rpy="0 0 0" />
+            <geometry>
+                <box size="0.29 0.29 0.03" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+    </link>
+
+    <joint name="arm_base_2_joint" type="fixed">
+        <origin xyz="0 0 0.032" rpy="0 0 0" />
+        <parent link="arm_base_1_link" />
+        <child link="arm_base_2_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+
+
+
+    <link name="arm_base_3_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.001" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 -0.6666" rpy="0 0 0" />
+            <geometry>
+                <box size="0.27 0.27 1.3332" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+        <visual>
+            <origin xyz="0 0 -0.015" rpy="0 0 0" />
+            <geometry>
+                <box size="0.28 0.28 0.03" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+    </link>
+
+    <joint name="arm_base_3_joint" type="fixed">
+        <origin xyz="0 0 0.032" rpy="0 0 0" />
+        <parent link="arm_base_2_link" />
+        <child link="arm_base_3_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+
+
+
+    <link name="arm_base_4_link">
+        <inertial>
+      		<origin xyz="0 0 0" rpy="0 0 0" />
+      		<mass value="0.001" />
+      		<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.001" />
+    	</inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                filename="package://lunarPrinter/meshes/agv/arm_base_link.STL" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <visual>
+            <origin xyz="0 0 -0.7216" rpy="0 0 0" />
+            <geometry>
+                <box size="0.27 0.27 1.3332" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+        <visual>
+            <origin xyz="0 0 -0.0675" rpy="0 0 0" />
+            <geometry>
+                <box size="0.28 0.28 0.035" />
+            </geometry>
+            <material name="Black">
+                <color rgba="0 0 0 0.95" />
+            </material>
+        </visual>
+
+    </link>
+
+    <joint name="arm_base_4_joint" type="fixed">
+        <origin xyz="0 0 0.092" rpy="0 0 0" />
+        <parent link="arm_base_3_link" />
+        <child link="arm_base_4_link" />
+        <axis xyz="0 0 1" />
+    </joint>
+
+</robot>

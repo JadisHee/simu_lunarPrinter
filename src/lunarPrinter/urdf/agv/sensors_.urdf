@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="sensors">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0276227484725201 -1.27979022125324E-06 0.216777618595537"
+        rpy="0 0 0" />
+      <mass
+        value="356.107391573212" />
+      <inertia
+        ixx="66.5606357128645"
+        ixy="0.00332565654383913"
+        ixz="-3.26439235033433E-05"
+        iyy="116.49547476404"
+        iyz="2.33444187773766E-05"
+        izz="182.646575495748" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="front_lidar_link">
+    <inertial>
+      <origin
+        xyz="-0.0035462 0.0042043 -0.073173"
+        rpy="0 0 0" />
+      <mass
+        value="9.4988" />
+      <inertia
+        ixx="0.017958"
+        ixy="-0.00028001"
+        ixz="7.641E-05"
+        iyy="0.017988"
+        iyz="-0.00013292"
+        izz="0.013238" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/front_lidar_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.52941 0.54902 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/front_lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_lidar_joint"
+    type="fixed">
+    <origin
+      xyz="1.0527 -0.84887 0.24279"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="back_lidar_link">
+    <inertial>
+      <origin
+        xyz="-0.0034717 0.004266 -0.073173"
+        rpy="0 0 0" />
+      <mass
+        value="9.4988" />
+      <inertia
+        ixx="0.017948"
+        ixy="-0.00027931"
+        ixz="7.4062E-05"
+        iyy="0.017998"
+        iyz="-0.00013424"
+        izz="0.013238" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/back_lidar_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.52941 0.54902 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/back_lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back_lidar_joint"
+    type="fixed">
+    <origin
+      xyz="-1.0527 0.84887 0.24279"
+      rpy="0 0 -3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="back_lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="code_camera_link">
+    <inertial>
+      <origin
+        xyz="-3.5665E-07 -0.0013804 -0.024824"
+        rpy="0 0 0" />
+      <mass
+        value="0.24177" />
+      <inertia
+        ixx="0.00015322"
+        ixy="3.4832E-09"
+        ixz="-1.2072E-09"
+        iyy="0.00013904"
+        iyz="-7.957E-07"
+        izz="0.000194" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/code_camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sensors/meshes/code_camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="code_camera_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="3.1416 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="code_camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

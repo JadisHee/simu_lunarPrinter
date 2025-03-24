@@ -1,0 +1,500 @@
+<?xml version="1.0"?>
+
+<robot name="arm" xmlns:xacro="http://ros.org/wiki/xacro" >
+
+    <!--#############################################-->
+    <!-- 构建基座 -->
+    <!--#############################################-->
+    <link name="arm_base_link">
+        
+        <inertial>
+        <origin
+            xyz="-7.89007780837018E-05 0.0260795471385364 0.000250283055826241"
+            rpy="0 0 0" />
+        <mass
+            value="0.0000168400023612511" />
+        <inertia
+            ixx="0.000000175634288446034"
+            ixy="-0.00000705111471416143E-06"
+            ixz="0.000000000132536380514416"
+            iyy="0.000000339920630895577"
+            iyz="0.00000212062962173668E-05"
+            izz="0.000000175097307372981" />
+        </inertial>
+        
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/base_link.STL" />
+            </geometry>
+            <material name="Blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 设置关节坐标系 -->
+    
+    <!-- <link name="world"/>
+    <joint name="fixed"  type="fixed">
+        <origin xyz="0 0 1" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="arm_base_link"/>
+    </joint> -->
+   
+    <!--#############################################-->
+    <!-- 构建关节一 -->
+    <!--#############################################-->
+    <link name="link_1">     
+        <inertial>
+            <origin xyz="0.0240592930415565 0.147960202341401 0.150275212212244" rpy="0 0 0" />
+            <mass value="0.0000461935755619436" />
+            <inertia 
+                ixx="0.000000182892351491963"
+                ixy="-0.000000000106097607947388"
+                ixz="0.00000293650425485005E-06"
+                iyy="0.000000139480004434281"
+                iyz="-0.00000728873034095655E-05"
+                izz="0.000000155379054418068" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_1.STL" />
+            </geometry>
+            <material name="While">
+                <color rgba="1 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_1.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="joint_1" type="revolute">
+        <origin xyz="0 0 0.054" rpy="0 0 3.1416" />
+        <parent link="arm_base_link" />
+        <child link="link_1" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.2831853" upper="6.2831853" effort="0.05" velocity="2.0943951" />
+    </joint>
+
+    <!--#############################################-->
+    <!-- 构建关节二 -->
+    <!--#############################################-->
+    <link name="link_2">
+        <inertial>
+            <origin xyz="-0.00741058119634522 0.838316036295861 0.102815693133785" rpy="0 0 0" />
+            <mass value="0.0000242374252720559" />
+            <inertia 
+                ixx="0.000001249"
+                ixy="0.00000000015288"
+                ixz="-0.0000000026305"
+                iyy="0.00000020173"
+                iyz="0.0000000030011"
+                izz="0.0000012505" />
+        </inertial>
+        
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_2.STL" />
+            </geometry>
+            <material name="Blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_2.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <!--
+    <joint name="joint_2" type="fixed">
+        <origin xyz="0 0.164 0" rpy="1.5708 -1.5708 3.1416" />
+        <parent link="link_1" />
+        <child link="link_2" />
+    </joint>
+    -->
+    <joint name="joint_2" type="revolute">
+        <origin xyz="0.11845 0.19974 0.175" rpy="1.5708 0 1.5686" /> />
+        <parent link="link_1" />
+        <child link="link_2" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159265" upper="3.14159265" effort="0.04" velocity="2.0943951" />
+    </joint>
+    
+    <!--#############################################-->
+    <!-- 构建关节三 -->
+    <!--#############################################-->
+    <link name="link_3">
+        <inertial>
+            <origin xyz="0.260661701543515 0.086562345757625 0.0904582129864851" rpy="0 0 0" />
+            <mass value="0.0000415021573008086" />
+            <inertia 
+                ixx="0.000000448434081189012"
+                ixy="-0.000000305014121987798"
+                ixz="-0.0000000391459265336423"
+                iyy="0.000000893193211636663"
+                iyz="-0.0000000138785013334083"
+                izz="0.00000110643474031866" />
+        </inertial>
+        
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_3.STL" />
+            </geometry>
+            <material name="While">
+                <color rgba="1 1 1 0.95" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_3.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <!--
+    <joint name="joint_3" type="fixed">
+        <origin xyz="0.608 0 0" rpy="0 0 0" />
+        <parent link="link_2" />
+        <child link="link_3" />
+    </joint>
+    -->
+    <joint name="joint_3" type="revolute">
+        <origin xyz="-0.0080695 1.65 0.003" rpy="3.1416 0 0" />
+        <parent link="link_2" />
+        <child link="link_3" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159265" upper="3.14159265" effort="0.04" velocity="3.14159265" />
+    </joint>
+    
+    <!--#############################################-->
+    <!-- 构建关节四 -->
+    <!--#############################################-->
+    <link name="link_4">
+        <inertial>
+            <origin xyz="-0.0031147 -0.00083318 0.090676" rpy="0 0 0" />
+            <mass value="0.0000041922" />
+            <inertia 
+                ixx="0.000000022992"
+                ixy="0.0000019927E-06"
+                ixz="-0.0000027983E-05"
+                iyy="0.000000016034"
+                iyz="0.0000028486E-06"
+                izz="0.000000012089" />
+        </inertial>
+        
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_4.STL" />
+            </geometry>
+            <material name="Blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_4.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <!--
+    <joint name="joint_4" type="fixed">
+        <origin xyz="0.566 0 0" rpy="0 0 1.5708" />
+        <parent link="link_3" />
+        <child link="link_4" />
+    </joint>
+    -->
+    <joint name="joint_4" type="revolute">
+        <origin xyz="1.5248 0.74569 0.1255" rpy="0.50789 -1.5708 3.14159265" />
+        <parent link="link_3" />
+        <child link="link_4" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.2831853" upper="6.2831853" effort="0.02" velocity="3.14159265" />
+    </joint>
+    
+    <!--#############################################-->
+    <!-- 构建关节五 -->
+    <!--#############################################-->
+    <link name="link_5">
+        <inertial>
+            <origin xyz="-5.13810008009319E-05 0.0631532787550311 0.0576399105925339" />
+            <mass value="0.0000025" />
+            <inertia 
+                ixx="0.0000000034092146499895"
+                ixy="0.00000354033055425707E-07"
+                ixz="-0.00000226564220026257E-06"
+                iyy="0.00000000396941822314873"
+                iyz="-0.000000000131806839548867"
+                izz="0.00000000295296609100218" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_5.STL" />
+            </geometry>
+            <material name="While">
+                <color rgba="1 1 1 0.95" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_5.STL" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <joint name="joint_5" type="revolute">
+        <origin xyz="-0.0615 0 0.167" rpy="1.5708 -1.0629 1.5708" />
+        <parent link="link_4" />
+        <child link="link_5" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.2831853" upper="6.2831853" effort="0.02" velocity="3.14159265" />
+    </joint>
+    <!--
+    <joint name="joint_5" type="fixed">
+        <origin xyz="0 -0.126 0" rpy="1.5708 0 0" />
+        <parent link="link_4" />
+        <child link="link_5" />
+    </joint>
+    -->
+    <!--#############################################-->
+    <!-- 构建关节六 -->
+    <!--#############################################-->
+    <link name="link_6">
+        <inertial>
+            <origin xyz="-7.78457159844592E-17 -2.1094237467878E-14 -0.0648864905098758" rpy="0 0 0" />
+            <mass value="0.00002" />
+            <inertia 
+                ixx="0.00000006352"
+                ixy="-0.00021853E-08"
+                ixz="-0.00050851E-09"
+                iyy="0.000000063521"
+                iyz="-0.00068675E-10"
+                izz="0.00000005861" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_6.STL" />
+            </geometry>
+            <material name="Blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package:// lunarPrinter/meshes/arm/link_6.STL" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <joint name="joint_6" type="revolute">
+        <origin xyz="0 0.2856 0.0615" rpy="-1.5708 1.5686 0" />
+        <parent link="link_5" />
+        <child link="link_6" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.2831853" upper="6.2831853" effort="0.01" velocity="3.14159265" />
+    </joint>
+
+
+    <link name="link_7">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="0.0000001" />
+                <inertia 
+                    ixx="0.00000001"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.00000001"
+                    iyz="0"
+                    izz="0.0000001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 -0.05" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.01"/>
+            </geometry>
+            <material name="Blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+
+        <!-- <collision>
+            <origin xyz="0 0 -0.05" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.1" radius="0.01"/>
+            </geometry>
+        </collision> -->
+
+        
+    </link>
+
+    <joint name="joint_7" type="fixed">
+        <origin xyz="0 0 0.1" rpy="0 0 0" />
+        <parent link="link_6" />
+        <child link="link_7" />
+    </joint>
+
+    <!-- <gazebo reference ="link_7">
+            <plugin name="particle_emitter" filename="libParticleEmitterPlugin.so">
+                <pose>0 0 0 0 0 0</pose>
+                <emission_rate>5</emission_rate>
+                <particle_size>0.02 0.02 0.02</particle_size>
+                <lifetime>5</lifetime>
+                <velocity>0.0</velocity>
+                <enabled>false</enabled>
+            </plugin>
+        </gazebo>
+    -->
+    <!--
+    <joint name="joint_6" type="fixed">
+        <origin xyz="0 0.113 0" rpy="-1.5708 0 0" />
+        <parent link="link_5" />
+        <child link="link_6" />
+    </joint>
+    -->
+
+    <!--#############################################-->
+    <!-- 控制-->
+    <!--#############################################-->
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/</robotNamespace>
+        <controlPeriod>0.001</controlPeriod>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+        <legacyMode>false</legacyMode>
+        </plugin>
+    </gazebo>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+    <!--
+    <gazebo reference="link_1">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    -->
+    <gazebo reference="link_2">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+    <!--
+    <gazebo reference="link_3">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    --> 
+    <gazebo reference="link_4">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+    <!--
+    <gazebo reference="link_5">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    -->
+    <gazebo reference="link_6">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <transmission name="joint_1_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_1_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="joint_2_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_2_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="joint_3_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_3_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="joint_4_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_4_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="joint_5_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_5">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_5_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="joint_6_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_6">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_6_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+</robot>

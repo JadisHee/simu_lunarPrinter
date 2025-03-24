@@ -1,0 +1,51 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+    - joint_6
+  /gazebo_ros_control:
+    pid_gains:
+        joint_1:
+        p: 150
+        i: 0.1
+        d: 15
+        i_clamp_min: -2
+        i_clamp_max: 2
+      joint_2:
+        p: 30000
+        i: 2
+        d: 600
+        i_clamp_min: -2
+        i_clamp_max: 2
+      joint_3:
+        p: 8000
+        i: 0
+        d: 40
+        i_clamp_min: -2
+        i_clamp_max: 2
+      joint_4:
+        p: 8000
+        i: 0
+        d: 40
+        i_clamp_min: -2
+        i_clamp_max: 2
+      joint_5:
+        p: 300
+        i: 0
+        d: 1
+        i_clamp_min: -2
+        i_clamp_max: 2
+      joint_6:
+        p: 10
+        i: 0
+        d: 1
+        i_clamp_min: -2
+        i_clamp_max: 2
+  gravity_compensation: true
